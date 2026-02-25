@@ -48,8 +48,10 @@ def my_decorator(admin_onle = False, bun_protection = False,return_error = False
                         kycok.send_message(adm,error_text)
                     return
             try:
-
-                print(f"{datetime.now().strftime("%H:%M")}:{func.__name__}() {args[0].from_user.first_name if len(args) > 0 and hasattr(args[0], 'from_user') else ""}")                       
+                rep = f"{datetime.now().strftime('%m:%d %H:%M')} | {func.__name__}{' '*max(0,20 - len(func.__name__))}| {args[0].from_user.first_name if len(args) > 0 and hasattr(args[0], 'from_user') else 'None'}"
+                with open("log.txt","a",encoding="utf-8") as f:
+                    f.write(rep+"\n")
+                print(rep)                       
                 func(*args, **kwargs)  
             
             except Exception as e:
@@ -58,8 +60,10 @@ def my_decorator(admin_onle = False, bun_protection = False,return_error = False
                     error_text = f"""↳{func.__name__}\n {e} """
                     raise ValueError(error_text)
                 else:
-                    error_text = f"""[ERROR]:{func.__name__}\n{e}"""
+                    error_text = f"""{datetime.now().strftime("%m:%d %H:%M")}|[ERROR]:{func.__name__}\n{e}"""
                     print(f"\033[91m{error_text}\033[0m")
+                    with open("log.txt","a",encoding="utf-8") as f:
+                        f.writelines(error_text+"\n")
                     for adm in db.admins():
                         kycok.send_message(adm,error_text)
                     return 
