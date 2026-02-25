@@ -1,5 +1,6 @@
 import sqlite3
 from functools import wraps
+import oc
 
 class database:
     fael = ""
