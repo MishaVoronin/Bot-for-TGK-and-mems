@@ -99,11 +99,8 @@ if __name__ == "__main__":
             if HTTPSerrors <= 3:
                 run_bot()
 
-
-
-    @my_decorator()
     def main():
-        print("бот запущен")
+
         run_bot()    
 
 if __name__ == "__main__":
