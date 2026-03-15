@@ -1,0 +1,9 @@
+services:
+  bot:
+    build: .
+    volumes:
+      - ./database.db:/app/database.db
+      - ./log.txt:/app/log.txt
+    security_opt:
+      - label:disable  # Отключает SELinux для этого контейнера
+    restart: unless-stopped
