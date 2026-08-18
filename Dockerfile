@@ -1,17 +1,13 @@
-# Используем официальный образ Python
-FROM python:3.14.2-slim
+FROM python:3.14-slim
 
-# Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем requirements.txt сначала (для кэширования слоя)
-COPY requirements.txt .
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
-# Устанавливаем зависимости
-RUN pip install --no-cache-dir -r requirements.txt
+COPY pyproject.toml uv.lock ./
 
-# Копируем все файлы проекта (включая вашу БД и конфиг)
+RUN uv sync --frozen --no-dev
+
 COPY . .
 
-# Команда для запуска бота
-CMD ["python", "main.py"]
+CMD ["uv", "run", "python", "main.py"]
