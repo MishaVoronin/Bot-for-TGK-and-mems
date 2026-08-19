@@ -15,8 +15,8 @@ admin_chat_id = os.getenv("ADMIN_CHAT_ID")
 async def start(db: AsyncSession, message: Message) -> None:
     await message.answer(
         """
-Это бот предложки канала "Кусок домкрата".
-Отправь сюда сообщение и оно отправится одмину
+Это самописный бот предложки канала "Кусок домкрата".
+Отправь сюда сообщение и оно отправится админу:3
         """
     )
 
